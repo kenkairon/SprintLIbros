@@ -1,0 +1,108 @@
+CREATE TABLE libros (
+    ISBN varchar(20) PRIMARY KEY,
+    titulo varchar(100) NOT NULL,
+    num_paginas integer,
+     tipo_autor varchar(20),
+    codigo_autor integer REFERENCES autores(codigo_autor),
+    rut_socio varchar(12) UNIQUE REFERENCES socio(rut)   
+);
+--------EXPLICACIÓN DE UNO A MUCHOS-------------------------------------------------------------------------------------------------------
+Sí, la relación entre la tabla "autores" y la tabla "libros" es de uno a muchos, ya que un autor puede escribir muchos libros, 
+pero cada libro solo puede ser escrito por un autor.
+
+En este caso, la clave primaria "codigo_autor" en la tabla "autores" se utiliza como clave foránea en la tabla "libros"
+ para relacionar cada libro con su autor correspondiente. Un mismo código de autor puede aparecer en varias filas de la tabla "libros",
+ lo que indica que un autor ha escrito varios libros. Por lo tanto, la relación es de uno a muchos, ya que un autor puede tener muchas 
+filas en la tabla "libros", pero cada fila solo puede tener un autor.
+
+Para implementar esta relación en la base de datos, se debe utilizar una clave foránea en la tabla "libros" que haga referencia 
+a la clave primaria en la tabla "autores". En la definición de las tablas que mostré anteriormente, la columna "codigo_autor"
+ en la tabla "libros" es una clave foránea que hace referencia a la columna "codigo_autor" en la tabla "autores". De esta manera, 
+se establece la relación de uno a muchos entre las dos tablas.
+----------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE autores (
+    codigo_autor serial PRIMARY KEY,
+    nombre_autor varchar(50),
+    apellido_autor varchar(50),
+    fecha_nacimiento date,
+    fecha_muerte date
+);
+
+Un socio sólo puede pedir un libro a la vez.
+▪ Para este ejercicio, asumirá que la biblioteca posee un ejemplar de cada libro
+En esta definición, la columna "rut_socio" en la tabla "libro" se utiliza como clave foránea 
+que hace referencia a la columna "rut" en la tabla "socio". 
+La cláusula "UNIQUE" en la definición de la columna "rut_socio" asegura que cada socio solo puede tener un libro en préstamo a la vez. 
+La clave primaria en la tabla "libro" sigue siendo la columna "isbn".
+
+Con esta definición, la tabla "libro" puede almacenar la información de los libros de la biblioteca
+, incluyendo su ISBN, título, número de páginas, código de autor y el RUT del socio que lo tiene en préstamo (si es que está en préstamo).
+ La relación entre la tabla "socio" y la tabla "libro" es de uno a uno, ya que un libro solo puede ser prestado a un socio a la vez, y 
+cada socio solo puede tener un libro en préstamo.
+
+CREATE TABLE socio (
+    rut varchar(12) PRIMARY KEY,
+    nombre varchar(50),
+    apellido varchar(50),
+    direccion varchar(100),
+    telefono varchar(20)
+);
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+La tabla "prestamo" tendría relaciones de uno a uno con las tablas "libro" y "socio". Cada préstamo se asocia a un solo libro y a un solo socio.
+
+La relación entre la tabla "prestamo" y la tabla "libro" se establece mediante la columna "isbn" en la tabla "prestamo", que es una clave foránea 
+que hace referencia a la columna "isbn" en la tabla "libro". Esto permite identificar qué libro fue prestado en cada préstamo.
+
+La relación entre la tabla "prestamo" y la tabla "socio" se establece mediante la columna "rut_socio" en la tabla "prestamo", que es una clave foránea
+ que hace referencia a la columna "rut" en la tabla "socio". Esto permite identificar a qué socio se le prestó cada libro en cada préstamo.
+
+En resumen, la relación de la tabla "prestamo" con la tabla "libro" y la tabla "socio" es de uno a uno en ambos casos, lo que significa que cada 
+préstamo se relaciona con un solo libro y un solo socio.
+------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE prestamo (
+    id SERIAL PRIMARY KEY,
+    isbn varchar(20) REFERENCES libros(ISBN),
+    rut_socio varchar(12) REFERENCES socio(rut),
+    fecha_inicio date,
+    fecha_esperada_devolucion date,
+    fecha_real_devolucion date,
+    UNIQUE(rut_socio)
+);
+
+--LAS TABLAS SERIAN DE ESTA MANERA------------------------------------------------------
+
+CREATE TABLE libros (
+    ISBN varchar(20) PRIMARY KEY,
+    titulo varchar(100) NOT NULL,
+    num_paginas integer,
+    tipo_autor varchar(20),
+    codigo_autor integer REFERENCES autores(codigo_autor)
+    
+);
+CREATE TABLE autores (
+    codigo_autor serial PRIMARY KEY,
+    nombre_autor varchar(50),
+    apellido_autor varchar(50),
+    fecha_nacimiento date,
+    fecha_muerte date
+);
+
+CREATE TABLE socio (
+    rut varchar(12) PRIMARY KEY,
+    nombre varchar(50),
+    apellido varchar(50),
+    direccion varchar(100),
+    telefono varchar(20)
+);
+
+
+CREATE TABLE prestamo (
+    id SERIAL PRIMARY KEY,
+    isbn varchar(20) REFERENCES libros(ISBN),
+    rut_socio varchar(12) REFERENCES socio(rut),
+    fecha_inicio date,
+    fecha_esperada_devolucion date,
+    fecha_real_devolucion date,
+    UNIQUE(rut_socio)
+);
+------------------------------------------------------------------------------------------
