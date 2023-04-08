@@ -23,26 +23,22 @@
             <div class="card-header">Nuevo Registro</div>
             <div class="card-body">
                 <form action="/create" method="POST">
+                  
                     <div class="mb-3">
-                        <label for="user" class="form-label">Estudiante</label>
-                        <input type="text" class="form-control" id="estudiante" name="estudiante" tabindex="1">
+                        <label for="user" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="txtNombre" name="txtNombre" tabindex="1">
                     </div>
                     <div class="mb-3">
-                        <label for="user" class="form-label">Rut Estudiante</label>
-                        <input type="text" class="form-control" id="rut" name="rut" tabindex="1">
+                        <label for="user" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" id="txtApellido" name="txtApellido" tabindex="1">
                     </div>
                     <div class="mb-3">
-                        <label for="user" class="form-label">Curso</label>
-                        <input type="text" class="form-control" id="curso" name="curso" tabindex="1">
+                        <label for="user" class="form-label">Fecha Nacimiento</label>
+                        <input type="date" class="form-control" id="txtFechanac" name="txtFechanac" tabindex="1">
                     </div>
                     <div class="mb-3">
-                        <label for="user" class="form-label">Nivel</label>
-                            <select id="nivel" name="nivel" class="form-select" aria-label="Default select example" tabindex="2" >
-                                <option value="" selected disabled>Seleccione nivel</option>
-                                <% for(var i=1; i<=10; i++){ %>
-                                <option value="<%= i %>"><%= i %></option>
-                                <% } %>
-                            </select>
+                        <label for="user" class="form-label">Fecha Muerte</label>
+                        <input type="date" class="form-control" id="txtFechamuerte" name="txtFechamuerte" tabindex="1">
                     </div>
                     <button type="submit" class="btn btn-primary" tabindex="5">Guardar</button>
                     <a href="/" class="btn btn-secondary">Cancelar</a>

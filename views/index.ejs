@@ -25,27 +25,26 @@
         <table class="table table-bordered table-striped table-hover text-center mt-4 border border-light table" id="example">
             <thead>
                 <tr class="bg-primary text-white border">
-                    <th>id</th>
-                    <th>Nombre</th>
-                    <th>
-                        <div class="col-sm-12"><input class="form-control" type="text" id="inputRut" placeholder="Buscar por RUT..."></div>
-                    </th>
-                    <th>Curso</th>
-                    <th>Nivel</th>
+                    <th>codAutor</th>
+                    <th>Nombre Autor</th>
+                    <th>Apellido</th>
+                    <th>Fecha Nacimiento</th>
+                    <th>Fecha Muerte</th>
                     <th>Configuración</th>
                 </tr>
             </thead>
             <tbody>
-            <% results.forEach((est)=>{ %>
+            <% results.forEach((lib)=>{ %>
                 <tr>
-                    <td><%= est.id %></td>
-                    <td><%= est.nombre %></td>
-                    <td><%= est.rut %></td>
-                    <td><%= est.curso %></td>
-                    <td><%= est.nivel %></td>
+                    <td><%= lib.codigo_autor %></td>
+                    <td><%= lib.nombre_autor %></td>
+                    <td><%= lib.apellido_autor %></td>
+                    <td><%= lib.fecha_nacimiento %></td>
+                    <td><%= lib.fecha_muerte %></td>
+                   
                     <td>
-                        <a href="/edit/<%= est.id %>"  class="btn btn-outline-primary">Editar<i class="bi bi-pen"></i></a>
-                        <a href="/delete/<%= est.id %>" class="btn btn-outline-danger">Borrar <i class="bi bi-x-octagon"></i></a>
+                        <a href="/edit/<%= lib.codigo_autor%>"  class="btn btn-outline-primary">Editar<i class="bi bi-pen"></i></a>
+                        <a href="/delete/<%= lib.codigo_autor %>" class="btn btn-outline-danger">Borrar <i class="bi bi-x-octagon"></i></a>
                     </td>
                 </tr>
             <% }) %>

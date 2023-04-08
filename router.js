@@ -32,20 +32,7 @@ router.get('/create', (req, res)=> {
 })
 //lamamos el crud en controllers de la exportacion exports.save
 const crud= require('./controllers/crud');
-router.post('/create',urlencodedParser, [
-    check('estudiante')
-    .exists()
-    .not()
-    .isLength({ min: 20 })
-    .isEmpty(),
-check('rut')
-    .exists()
-    .isNumeric()
-    .isLength({ min: 10 }),
-check('curso')
-    .exists(),
-    check('nivel').notEmpty().isInt(),
-],crud.save, (req, res)=> {
+router.post('/create',crud.save, (req, res)=> {
     const errors = validationResult(req)
     if(!errors.isEmpty()) {
         // return res.status(422).jsonp(errors.array())
@@ -62,9 +49,9 @@ check('curso')
 router.get('/edit/:id', async (req, res) => {
     const codigo = req.params.codigo;
     let client;
-    try {        
+    try {
         client = await pool.connect()
-        const results = await client.query('SELECT * FROM autores WHERE id=$1', [codigo]);             
+        const results = await client.query('SELECT * FROM autores WHERE id=$1', [codigo]);
         res.render('edit', { est: results.rows });
     } catch (error) {
         throw error;
@@ -78,10 +65,10 @@ router.post('/update', crud.update);
 router.get('/delete/:id',async (req, res) => {
     const codigo = req.params.codigo;
     let client;
-    try {        
+    try {
         client = await pool.connect()
         resultado = await client.query('DELETE FROM autores WHERE codigo_autor = $1',[codigo]);
-       
+
         if(resultado = true){
             req.flash('success', 'Autor Eliminado Correctamente')
             res.redirect('/');
