@@ -1,0 +1,44 @@
+<hr>
+<button type="button" class="btn-md btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="bi bi-person-fill-add"></i> Agregar Autores</button>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Registro de Autores</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            <div class="container mt-4">
+                <div class="card border-secondary">
+                    <div class="card-header">Editar Registro</div>
+                    <div class="card-body">
+                    <% autor.forEach((aut)=>{ %>
+                        <form action="/create" method="POST">
+                            <input id="txtcod_autor" name="txtcod_autor" value="<%=aut.codigo_autor %>" hidden>
+                            <div class="mb-3">
+                                <label for="user" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="txtNombre" name="txtNombre" tabindex="1"  value="<%= aut.nombre_autor %>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="user" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="txtApellido" name="txtApellido" tabindex="1" value="<%= aut.apellido_autor %>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="user" class="form-label">Fecha Nacimiento</label>
+                                <input type="date" class="form-control" id="txtFechanac" name="txtFechanac" tabindex="1"  value="<%= aut.fecha_nacimiento %>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="user" class="form-label">Fecha Muerte</label>
+                                <input type="date" class="form-control" id="txtFechamuerte" name="txtFechamuerte" tabindex="1"  value="<%= aut.fecha_muerte %>">
+                            </div>
+                            <button type="submit" class="btn btn-primary" tabindex="5">Guardar</button>
+                            <a href="/create" class="btn btn-secondary">Cancelar</a>
+                        </form>
+                    <%}); %>
+                    </div>
+                </div>       
+            </div>       
+      </div> 
+    </div>
+  </div>
+</div>

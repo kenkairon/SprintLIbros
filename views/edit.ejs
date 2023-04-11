@@ -8,40 +8,37 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
 <body class="container">
-    <% est.forEach((est)=>{ %>
+    
     <div class="container mt-4">
         <div class="card border-secondary">
             <div class="card-header">Editar Registro</div>
             <div class="card-body">
-                <form action="/update" method="POST">
-                    <input id="id" name="id" value="<%=est.id %>" hidden>
-                    <div class="mb-3">
-                        <label for="user" class="form-label">Estudiante</label>
-                        <input type="text" class="form-control" id="estudiante" name="estudiante" value="<%= est.nombre %>" tabindex="1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="user" class="form-label">Rut Estudiante</label>
-                        <input type="text" class="form-control" id="rut" name="rut" tabindex="1" value="<%= est.rut %>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="user" class="form-label">Curso</label>
-                        <input type="text" class="form-control" id="curso" name="curso" tabindex="1" value="<%= est.curso %>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="user" class="form-label">Nivel</label>
-                            <select id="nivel" name="nivel" class="form-select" aria-label="Default select example" tabindex="2" >
-                                <option value="<%= est.nivel %>"><%= est.nivel %></option>
-                                <% for(var i=1; i<=10; i++){ %>
-                                <option value="<%= i %>"><%= i %></option>
-                                <% } %>
-                            </select>
-                    </div> 
-                    <button type="submit" class="btn btn-primary" tabindex="5">Guardar</button>
-                    <a href="/" class="btn btn-secondary">Cancelar</a>
-                </form>
-            </div>
-        </div>
-    <% }); %>
+                <% autor.forEach((aut)=>{ %>                    
+                    <form action="/update" method="POST">
+                        <input id="txtCodigo_autor" name="txtCodigo_autor" value="<%=aut.codigo_autor %>" hidden>
+                        <div class="mb-3">
+                            <label for="user" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="txtNombre" name="txtNombre" tabindex="1"  value="<%= aut.nombre_autor %>">
+                        </div>
+                        <div class="mb-3">
+                            <label for="user" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" id="txtApellido" name="txtApellido" tabindex="1" value="<%= aut.apellido_autor %>">
+                        </div>
+                        <div class="mb-3">
+                            <label for="user" class="form-label">Fecha Nacimiento</label>
+                            <% let fechaNacimiento = new Date(aut.fecha_nacimiento); %>
+                            <input type="text" class="form-control" id="txtFechanac" name="txtFechanac" tabindex="1"  value="<%=fechaNacimiento.toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit', year: 'numeric'}) %>">
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtFechanac" class="form-label">Fecha Nacimiento</label>
+                            <input type="text" class="form-control" id="txtFechamuerte" name="txtFechamuerte" tabindex="1" value="<%= (aut.fecha_muerte) ? new Date(aut.fecha_muerte).toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit', year: 'numeric'}) : '' %>">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" tabindex="5">Guardar</button>
+                        <a href="/create" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                <%}); %>
+            </div>   </div>
   </div>
  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
